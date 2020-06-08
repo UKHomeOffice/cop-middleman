@@ -1,4 +1,4 @@
-FROM digitalpatterns/node:11
+FROM digitalpatterns/node
 
 ENV HOME /root
 
