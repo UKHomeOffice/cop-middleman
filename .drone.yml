@@ -16,17 +16,17 @@ pipeline:
       environment: secrets
       event: deployment
 
-  build_matrix:
+  build:
     image: quay.io/ukhomeofficedigital/drone-docker
     commands:
-      - docker build -t cop-middleman:11 .
+      - docker build -t cop-middleman .
     when:
       event: push
 
-  vulnerability_scan_matrix:
+  vulnerability_scan:
     image: quay.io/ukhomeofficedigital/anchore-submission:latest
     dockerfile: Dockerfile
-    image_name: cop-middleman:11
+    image_name: cop-middleman
     local_image: true
     tolerate: low
     fail_on_detection: false
@@ -43,7 +43,6 @@ pipeline:
       target: DOCKER_PASSWORD
     registry: quay.io
     repo: quay.io/ukhomeofficedigital/cop-middleman
-    tags: 11
     when:
       branch: master
       event: push
